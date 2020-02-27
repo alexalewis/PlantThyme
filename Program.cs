@@ -46,18 +46,19 @@ namespace PlantThyme
 
         else if (input == "remove")
         {
-          Console.WriteLine("Which plant would you like to remove?");
-          var removePlant = Console.ReadLine().ToLower();
+          Console.WriteLine("Which plant ID would you like to remove?");
+          var removePlant = int.Parse(Console.ReadLine());
 
-          var plantToDelete = db.Plants.First(p => p.Species == removePlant);
+          var plantToDelete = db.Plants.FirstOrDefault(p => p.Id == removePlant);
           db.Plants.Remove(plantToDelete);
           db.SaveChanges();
         }
         else if (input == "water")
         {
-          Console.WriteLine("Which plant do you want to water?");
-          var water = Console.ReadLine().ToLower();
-          var plantToWater = db.Plants.First(p => p.Species == water);
+          Console.WriteLine("Which plant ID do you want to water?");
+          var water = int.Parse(Console.ReadLine());
+
+          var plantToWater = db.Plants.FirstOrDefault(p => p.Id == water);
           plantToWater.LastWatered = DateTime.Now;
           db.SaveChanges();
         }
