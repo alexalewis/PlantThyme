@@ -55,7 +55,6 @@ namespace PlantThyme
         }
         else if (input == "water")
         {
-
           Console.WriteLine("Which plant do you want to water?");
           var water = Console.ReadLine().ToLower();
           var plantToWater = db.Plants.First(p => p.Species == water);
@@ -64,15 +63,30 @@ namespace PlantThyme
         }
         else if (input == "location")
         {
-          //location summary
+          Console.WriteLine("Which plant location would you like to see?");
+          var location = Console.ReadLine().ToLower();
+
+          var viewLocatedPlants = db.Plants.Where(p => p.LocatedPlant == location);
+          foreach (var plant in viewLocatedPlants)
+          {
+            Console.WriteLine($"Your {plant.Species} is planted in/at {plant.LocatedPlant}.");
+          }
         }
         else if (input == "view")
         {
-          //view
+          var viewCurrentPlants = db.Plants.OrderBy(p => p.LocatedPlant);
+          foreach (var plant in viewCurrentPlants)
+          {
+            Console.WriteLine($"Your {plant.Species} is planted in/at {plant.LocatedPlant}.");
+          }
         }
         else if (input == "need")
         {
-
+          var plantsNeedWater = db.Plants.OrderBy(p => p.LastWatered);
+          foreach (var plant in plantsNeedWater)
+          {
+            Console.WriteLine($"Your {plant.Species} needs water.");
+          }
         }
         else if (input == "quit")
         {
